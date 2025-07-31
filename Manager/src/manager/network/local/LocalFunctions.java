@@ -6,9 +6,11 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import game.equipment.container.Container;
 import game.rules.play.moves.Moves;
 import manager.Manager;
 import other.context.Context;
+import other.translation.LanguageUtils;
 
 /**
  * Local network functions that can be called by external agents using sockets.
@@ -45,6 +47,7 @@ public class LocalFunctions
 					{
 						// Establish connection. 
 						socket = serverSocket.accept();
+						System.out.println("Client accepted");	// FOR-TESTING
 						final DataInputStream dis = new DataInputStream(socket.getInputStream());  
 						
 						// Print any messages from socket.
@@ -85,7 +88,13 @@ public class LocalFunctions
 							reply = Integer.toString(manager.ref().context().state().mover());
 							initialiseClientSocket(Integer.parseInt(message.substring(0,4)), "player " + reply);
 						}
-						
+						// ME: creating more input options
+						// ME-TODO
+						else if (message.length() >= 9 && message.substring(5, 9).equals("info"))
+						{
+							reply = getInfo(message, manager);
+							initialiseClientSocket(Integer.parseInt(message.substring(0,4)), reply);
+						}
 						System.out.println("Reply= " + reply);
 					}
 				}
@@ -105,6 +114,101 @@ public class LocalFunctions
 		    }
 		}).start();
 	}
+
+	// Me - start
+	private static String getInfo(String message, final Manager manager){
+		// message = "<portnumber with length 4> info EXTRA"
+		// where EXTRA is the info I want
+		String extra = message.substring(10).trim();
+		String reply = "unknown";
+		switch (extra){
+			case "game_name":
+				reply = manager.ref().context().game().name();
+				break;
+			case "game_players":
+				reply = manager.ref().context().game().players().toEnglish(manager.ref().context().game());
+				reply = LanguageUtils.NumberAsText(manager.ref().context().game().players().count(), "player", "players") + (reply.isEmpty() ? "" : ": (" + reply + ")");
+				break;
+			case "game_rules":
+				reply = manager.ref().context().game().rules().toEnglish(manager.ref().context().game());
+				break;
+			case "game_description_raw":
+				reply = manager.ref().context().game().description().raw();
+				break;
+			case "game_description_expanded":
+				reply = manager.ref().context().game().description().expanded();
+				break;
+			case "game":
+				reply = manager.ref().context().game().toEnglish(manager.ref().context().game());
+				break;
+			case "have_started":
+				if(manager.ref().context().haveStarted()){
+					reply = "started";
+				}
+				else {
+					reply = "not started";
+				}
+				break;
+			case "game_restart":
+				manager.getPlayerInterface().restartGame();
+				reply = "hopefully restarted";
+				break;
+			case "addTextToStatusPanel":
+				manager.getPlayerInterface().addTextToStatusPanel("new text");
+				reply = "added";
+				break;
+			case "setTemporaryMessage":
+				manager.getPlayerInterface().setTemporaryMessage("temporary test message");
+				break;
+			case "board":	// ME-TODO get better board rep, with actual board descrition of current status
+				reply = manager.ref().context().board().toEnglish(manager.ref().context().game());
+				break;
+			case "state":
+				reply = manager.ref().context().state().toString();
+				break;
+				/* example
+				mvr=1, nxt=2, prv=0.
+				[ContainerState type = class other.state.container.ContainerFlatState
+				Empty = {chunk 5 = 1, chunk 6 = 1, chunk 7 = 1, chunk 8 = 1, chunk 9 = 1, chunk 11 = 1, chunk 12 = 1, chunk 13 = 1, chunk 15 = 1, chunk 16 = 1, chunk 17 = 1, chunk 18 = 1, chunk 19 = 1}
+				Who = {chunk 0 = 1, chunk 1 = 2, chunk 2 = 1, chunk 3 = 2, chunk 4 = 1, chunk 10 = 1, chunk 14 = 2, chunk 20 = 2, chunk 21 = 1, chunk 22 = 2, chunk 23 = 1, chunk 24 = 2}
+				]
+				 */
+			case "equipment":
+				reply = manager.ref().context().game().equipment().toEnglish(manager.ref().context().game());
+				break;
+				/* example
+				on a 5x5 rectangle board with square tiling.
+				All players play with Queens.
+				Rules for Pieces:
+					 Queens slide from the location of the piece in the adjacent direction through [between] is in the set of empty cells.
+				 */
+			case "container":
+				reply = "[";
+				for(Container container: manager.ref().context().game().equipment().containers()){
+					reply += container.toEnglish(manager.ref().context().game()) +
+							"\n\tTopology: " + container.topology().graph().toString() +
+							"\n\tnumSites: " + container.numSites() +
+							"\n\tStyle: " + container.style().name() +
+							"\n\tlabel: " + container.name() +
+							"\n\tindex: " + container.index() +
+							"\n\trole: " + container.role().toString();
+
+				}
+				reply += "]\n";
+				break;
+				/* example
+				[5x5 rectangle board with square tiling,
+				]
+				 */
+			default:
+				reply = "unsupported command";
+				break;
+		}
+		return reply;
+	}
+
+
+	// Me - end
 	
 	//-------------------------------------------------------------------------
 	

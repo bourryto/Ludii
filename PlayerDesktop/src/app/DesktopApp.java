@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
+import manager.network.local.LocalFunctions;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
@@ -422,7 +423,9 @@ public class DesktopApp extends PlayerApp
 				}
 			});
 			
-			loadInitialGame(true);	
+			loadInitialGame(true);
+			// ME: open local port on startup
+			LocalFunctions.initialiseServerSocket(this.manager(), 4444);
 		}
 		catch (final Exception e)
 		{
