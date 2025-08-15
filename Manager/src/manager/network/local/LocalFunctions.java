@@ -5,8 +5,12 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.stream.Collectors;
 
+import game.Game;
 import game.equipment.container.Container;
+import game.equipment.container.board.Track;
+import game.equipment.container.other.Deck;
 import game.rules.play.moves.Moves;
 import manager.Manager;
 import other.context.Context;
@@ -139,7 +143,11 @@ public class LocalFunctions
 				reply = manager.ref().context().game().description().expanded();
 				break;
 			case "game":
-				reply = manager.ref().context().game().toEnglish(manager.ref().context().game());
+				Game game = manager.ref().context().game();
+				reply = game.toEnglish(game);
+				reply += "\nMode:\n\t" + game.mode().mode() +
+						"\nEquipment:\n\t"+ game.equipment().toEnglish(game) +
+						"\nMetaRules:\n\t"+ game.metaRules();
 				break;
 			case "have_started":
 				if(manager.ref().context().haveStarted()){
@@ -161,7 +169,30 @@ public class LocalFunctions
 				manager.getPlayerInterface().setTemporaryMessage("temporary test message");
 				break;
 			case "board":	// ME-TODO get better board rep, with actual board descrition of current status
-				reply = manager.ref().context().board().toEnglish(manager.ref().context().game());
+				//reply = manager.ref().context().board().toEnglish(manager.ref().context().game());
+				Context context = manager.ref().context();
+				reply = "Game Flags: " + context.game().gameFlags();
+				if(context.game().isBoardless()){
+					reply += "\nGame is Boardless!";
+					break;
+				}
+				if(context.isGraphGame()){
+					reply += "\nGraphGame:\n" + context.topology().graph().toString() + "\n\n---\n\nTopology:\n" + context.topology().toString();
+				}
+				if(context.game().isDeductionPuzzle()){
+					reply +="\nGame is a Deduction Puzzle";
+				}
+				if(context.game().hasCard()){
+					reply += "\n[" + context.game().handDeck().stream().map(Deck::toString).collect(Collectors.joining(",")) + "]";
+				}
+				if(context.game().usesLineOfPlay()){
+					reply += "Game uses Line of Play";
+				}
+				if(context.game().hasTrack()){
+					reply += "\n[" + context.game().board().tracks().stream().map(Track::toString).collect(Collectors.joining(",")) + "]";
+				}
+				reply += "\n" + context.game().board();
+				// TODO ME: add representation where pieces are
 				break;
 			case "state":
 				reply = manager.ref().context().state().toString();

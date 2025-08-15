@@ -1,6 +1,7 @@
 package game.equipment.container.board;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 
@@ -577,5 +578,18 @@ public class Track extends BaseLudeme implements Serializable
 				return i;
 
 		return Constants.UNDEFINED;
+	}
+
+	@Override
+	public String toString() {
+		return "Track '" + name + "'" +
+				"\n\tElements:" + Arrays.toString(elems) +
+				"\n\tTrack" + Arrays.toString(track) +
+				"\n\tTrack Direction='" + trackDirection + '\'' +
+				"\n\tOwner:" + owner +
+				"\n\tlooped=" + looped +
+				"\n\tdirect=" + direct +
+				"\n\tinternalLoop=" + internalLoop +
+				"\n\ttrackIdx=" + trackIdx;
 	}
 }

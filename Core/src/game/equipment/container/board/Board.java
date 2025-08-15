@@ -22,6 +22,7 @@ import main.Constants;
 import main.math.Vector;
 import metadata.graphics.util.ContainerStyleType;
 import other.BaseLudeme;
+import other.StringAssistant;
 import other.concept.Concept;
 import other.topology.Cell;
 import other.topology.Edge;
@@ -337,7 +338,25 @@ public class Board extends Container
 
 		return text.trim();
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Board:" +
+				//"\n" + StringAssistant.addIndent(graph.toString()) + // not neccesary, as graph is printed in topography too
+				"\n" + StringAssistant.addIndent(graphFunction.toString()) +
+				//"\n\tedgeRange=" + edgeRange +
+				//"\n\tcellRange=" + cellRange +
+				//"\n\tvertexRange=" + vertexRange +
+				//"\n\tlargeStack=" + largeStack +
+				"\n" + StringAssistant.addIndent(topology.toString()) +
+				"\n\tnumSites=" + numSites +
+				"\n\ttracks=" + tracks +
+				//"\n\townedTracks=" + Arrays.toString(ownedTracks) +
+				"\n\tstyle=" + style +
+				"\n\tcontroller=" + controller +
+				"\n\tdefaultSite=" + defaultSite;
+	}
+
 	//----------------------------------
 	
 	/**

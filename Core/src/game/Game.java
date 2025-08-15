@@ -310,7 +310,44 @@ public class Game extends BaseLudeme implements API, Serializable
 				turnFormatString,
 				rulesString); 
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Game:" +
+				"\n\tname='" + name + '\'' +
+				"\n\toptions=" + options +
+				"\n\tmode=" + mode +
+				"\n\tplayers=" + players +
+				"\n\tequipment=" + equipment +
+				"\n\trules=" + rules +
+				"\n\tmetaRules=" + metaRules +
+				//"\n\tvoteStringsTable=" + voteStringsTable +
+				"\n\tdescription=" + description +
+				//"\n\tmaxTurnLimit=" + maxTurnLimit +
+				//"\n\tmaxMovesLimit=" + maxMovesLimit +
+				//"\n\tnumStartingAction=" + numStartingAction +
+				//"\n\tgameFlags=" + gameFlags +
+				//"\n\tbooleanConcepts=" + booleanConcepts +
+				//"\n\tconceptsNonBoolean=" + conceptsNonBoolean +
+				//"\n\tstateReference=" + stateReference +
+				//"\n\tfinishedPreprocessing=" + finishedPreprocessing +
+				//"\n\tstartContext=" + startContext +
+				//"\n\tstochasticStartingRules=" + stochasticStartingRules +
+				//"\n\tmapContainer=" + mapContainer +
+				//"\n\tmapComponent=" + mapComponent +
+				"\n\thandDice=" + handDice +
+				"\n\thandDeck=" + handDeck +
+				//"\n\tconstraintVariables=" + constraintVariables +
+				"\n\tmetadata=" + metadata +
+				//"\n\texpectedConcepts=" + expectedConcepts +
+				//"\n\trequirementReport=" + requirementReport +
+				//"\n\thasMissingRequirement=" + hasMissingRequirement +
+				//"\n\tcrashReport=" + crashReport +
+				//"\n\twillCrash=" + willCrash +
+				//"\n\tgameStartCount=" + gameStartCount +
+				"";
+	}
+
 	//----------------------------Getter and Shortcuts-----------------------------------
 
 	/**

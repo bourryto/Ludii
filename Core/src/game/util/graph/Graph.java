@@ -19,6 +19,7 @@ import gnu.trove.list.array.TIntArrayList;
 import main.math.MathRoutines;
 import main.math.Point3D;
 import main.math.Vector;
+import other.StringAssistant;
 import other.context.Context;
 
 //-----------------------------------------------------------------------------
@@ -2228,7 +2229,7 @@ public class Graph extends BaseGraphFunction
 		
 		sb.append("Vertices:\n");	
 		for (final Vertex vertex : vertices)
-			sb.append("- V: " + vertex.toString() + "\n");
+			sb.append("\t- V: " + vertex.toString() + "\n");
 		
 		if (edges.isEmpty())
 		{
@@ -2238,7 +2239,7 @@ public class Graph extends BaseGraphFunction
 		{
 			sb.append("Edges:\n");	
 			for (final Edge edge : edges)
-				sb.append("- E: " + edge.toString() + "\n");
+				sb.append("\t- E: " + edge.toString() + "\n");
 		}
 		
 		if (faces.isEmpty())
@@ -2249,10 +2250,10 @@ public class Graph extends BaseGraphFunction
 		{
 			sb.append("Faces:\n");	
 			for (final Face face : faces)
-				sb.append("- F: " + face.toString() + "\n");
+				sb.append("\t- F: " + face.toString() + "\n");
 		}
 		
-		return sb.toString();
+		return "Graph:\n" + StringAssistant.addIndent(sb.toString());
 	}
 
 	//-------------------------------------------------------------------------

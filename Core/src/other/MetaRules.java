@@ -173,4 +173,17 @@ public class MetaRules
 	{
 		return usesNoSuicide;
 	}
+
+	@Override
+	public String toString() {
+		return "MetaRules{" +
+				"automove=" + automove +
+				", gravityType=" + gravityType +
+				", pinType=" + pinType +
+				", usesSwapRule=" + usesSwapRule +
+				", repetitionType=" + repetitionType +
+				", usesNoSuicide=" + usesNoSuicide +
+				", noStackOnType=" + noStackOnType +
+				'}';
+	}
 }

@@ -120,4 +120,9 @@ public final class Mode extends BaseLudeme implements Serializable
 //		}
 		return new BitSet();
 	}
+
+	@Override
+	public String toString() {
+		return mode.toString();
+	}
 }

@@ -1,8 +1,10 @@
 package game.equipment.container.other;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import annotations.Name;
 import annotations.Opt;
@@ -461,5 +463,20 @@ public class Deck extends Container
 			}
 		}
 		return missingRequirement;
+	}
+
+	@Override
+	public String toString() {
+		return "Deck '" + name() + "'" +
+			"\n\tCards By Suit: " + cardsBySuits() +
+			"\n\tSuits: " + suits() +
+			"\n\tRanks: " + Arrays.toString(ranks()) +
+			"\n\tValues: " + Arrays.toString(values()) +
+			"\n\tTrump Ranks: " + Arrays.toString(trumpRanks()) +
+			"\n\tTrump Values: " + Arrays.toString(trumpValues()) +
+			"\n\tBiased: " + Arrays.toString(getBiased()) +
+			"\n\tTypes: [" + Arrays.stream(types()).map(CardType::label).collect(Collectors.joining(",")) + "]" +
+			"\n\tIndex Component: " + indexComponent() +
+			"\n\tNumber of Locations: " + numLocs();
 	}
 }

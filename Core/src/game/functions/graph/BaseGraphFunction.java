@@ -1,6 +1,7 @@
 package game.functions.graph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import annotations.Hide;
@@ -219,4 +220,8 @@ public abstract class BaseGraphFunction extends BaseLudeme implements GraphFunct
 
 	//-------------------------------------------------------------------------
 
+	@Override
+	public String toString(){
+		return "Shape: " + shape + " Basis: " + basis + " Dim: " + Arrays.toString(dim);
+	}
 }

@@ -2732,6 +2732,63 @@ public class Topology implements Serializable
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "Topology: " +
+				"\n\tcells=" + cells +
+				"\n\tedges=" + edges +
+				"\n\tvertices=" + vertices +
+				"\n\tgraph=" + graph +
+				"\n\tnumEdges=" + numEdges +
+				//"\n\ttrajectories=" + trajectories +
+				//"\n\tsupportedDirections=" + supportedDirections +
+				//"\n\tsupportedOrthogonalDirections=" + supportedOrthogonalDirections +
+				//"\n\tsupportedDiagonalDirections=" + supportedDiagonalDirections +
+				//"\n\tsupportedAdjacentDirections=" + supportedAdjacentDirections +
+				//"\n\tsupportedOffDirections=" + supportedOffDirections +
+				"\n\tcorners=" + corners +
+				//"\n\tcornersConvex=" + cornersConvex +
+				//"\n\tcornersConcave=" + cornersConcave +
+				//"\n\tmajor=" + major +
+				//"\n\tminor=" + minor +
+				//"\n\touter=" + outer +
+				//"\n\tperimeter=" + perimeter +
+				//"\n\tinner=" + inner +
+				//"\n\tinterlayer=" + interlayer +
+				//"\n\ttop=" + top +
+				//"\n\tleft=" + left +
+				//"\n\tright=" + right +
+				//"\n\tbottom=" + bottom +
+				//"\n\tcentre=" + centre +
+				//"\n\tcolumns=" + columns +
+				//"\n\trows=" + rows +
+				//"\n\tphases=" + phases +
+				//"\n\tsides=" + sides +
+				//"\n\tdistanceToOtherSite=" + distanceToOtherSite +
+				//"\n\tdistanceToCorners=" + distanceToCorners +
+				//"\n\tdistanceToSides=" + distanceToSides +
+				//"\n\tdistanceToCentre=" + distanceToCentre +
+				//"\n\tlayers=" + layers +
+				//"\n\tdiagonals=" + diagonals +
+				//"\n\taxials=" + axials +
+				//"\n\thorizontal=" + horizontal +
+				//"\n\tvertical=" + vertical +
+				//"\n\tangled=" + angled +
+				//"\n\tslash=" + slash +
+				//"\n\tslosh=" + slosh +
+				//"\n\tdistanceToRegions=" + distanceToRegions +
+				//"\n\tphaseByElementIndex=" + phaseByElementIndex +
+				//"\n\tconnectivities=" + connectivities +
+				//"\n\tperimeters=" + perimeters +
+				//"\n\tcellRotationSymmetries=" + Arrays.toString(cellRotationSymmetries) +
+				//"\n\tcellReflectionSymmetries=" + Arrays.toString(cellReflectionSymmetries) +
+				//"\n\tedgeRotationSymmetries=" + Arrays.toString(edgeRotationSymmetries) +
+				//"\n\tedgeReflectionSymmetries=" + Arrays.toString(edgeReflectionSymmetries) +
+				//"\n\tvertexRotationSymmetries=" + Arrays.toString(vertexRotationSymmetries) +
+				//"\n\tvertexReflectionSymmetries=" + Arrays.toString(vertexReflectionSymmetries) +
+		 		"";
+	}
+
 //	/**
 //	 * Compute one minimum walk between each pair of sites.
 //	 * 
