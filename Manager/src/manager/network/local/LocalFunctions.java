@@ -171,6 +171,7 @@ public class LocalFunctions
 			case "board":	// ME-TODO get better board rep, with actual board descrition of current status
 				//reply = manager.ref().context().board().toEnglish(manager.ref().context().game());
 				Context context = manager.ref().context();
+				/*
 				reply = "Game Flags: " + context.game().gameFlags();
 				if(context.game().isBoardless()){
 					reply += "\nGame is Boardless!";
@@ -192,6 +193,8 @@ public class LocalFunctions
 					reply += "\n[" + context.game().board().tracks().stream().map(Track::toString).collect(Collectors.joining(",")) + "]";
 				}
 				reply += "\n" + context.game().board();
+				*/
+				reply += "\n\n" + context.getBoardRep();
 				// TODO ME: add representation where pieces are
 				break;
 			case "state":

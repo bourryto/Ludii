@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Collectors;
 
 import org.apache.commons.rng.core.source64.SplitMix64;
 
@@ -1761,5 +1762,31 @@ public class Context
 		);
 		
 		trial.addUndoData(endData);
+	}
+
+	public String getBoardRep(){
+		String s = "";
+		ContainerState boardState = state.containerStates()[0];
+		ArrayList<ArrayList<String>> rows = new ArrayList<>();
+		int rMax = game.board().topology().graph().dim()[0];
+		int cMax = game.board().topology().graph().dim()[1];
+		for (int r = 0; r < rMax; r++) {
+			rows.add(new ArrayList<>());
+			for (int c = 0; c < cMax; c++) {
+				int site = r*cMax + c;
+				if(boardState.isEmpty(site, game.board().defaultSite())){
+					rows.get(r).add("-");
+				}
+				else {
+					//rows.get(r).add(Integer.toString(boardState.what(site, game.board().defaultSite())));
+					Component comp = components()[boardState.what(site, board().defaultSite())];
+					rows.get(r).add(comp.getNameWithoutNumber());
+				}
+			}
+		}
+		for (int r = rMax -1; r >= 0; r--) {
+			s += rows.get(r).stream().collect(Collectors.joining(" ")) + "\n";
+		}
+		return s;
 	}
 }
